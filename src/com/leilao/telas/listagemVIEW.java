@@ -1,4 +1,9 @@
+package com.leilao.telas;
 
+
+import com.leilao.projeto.ProdutosDAO;
+import com.leilao.projeto.ProdutosDAO;
+import com.leilao.projeto.ProdutosDTO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 

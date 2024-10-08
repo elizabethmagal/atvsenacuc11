@@ -1,3 +1,11 @@
+package com.leilao.telas;
+
+
+import com.leilao.telas.listagemVIEW;
+import com.leilao.projeto.ProdutosDAO;
+import com.leilao.projeto.ProdutosDAO;
+import com.leilao.projeto.ProdutosDTO;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
