@@ -213,8 +213,8 @@ public class listagemVIEW extends javax.swing.JFrame {
             
             ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
             
-            // Populando a tabela com os produtos
-        for (ProdutosDTO produto : listagem) {
+            // Populando a tabela com os produtos( aqui alterei o codigo anterior)
+            for (ProdutosDTO produto : listagem) {
             model.addRow(new Object[]{
                 produto.getId(),
                 produto.getNome(),

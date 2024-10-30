@@ -15,9 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class cadastroVIEW extends javax.swing.JFrame {
 
-    /**
-     * Creates new form cadastroVIEW
-     */
+    /** Implementação botão salvar cadastro*/
     public cadastroVIEW() {
         initComponents();
     }
@@ -158,7 +156,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         novoProduto.setNome(nome);
         novoProduto.setValor(valor);
 
-        // Chame o método de cadastro do DAO
+        // Chame o método de cadastro do DAO 
         ProdutosDAO dao = new ProdutosDAO();
         dao.cadastrarProduto(novoProduto);
 
