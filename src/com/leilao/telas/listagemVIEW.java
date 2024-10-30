@@ -5,6 +5,7 @@ import com.leilao.projeto.ProdutosDAO;
 import com.leilao.projeto.ProdutosDAO;
 import com.leilao.projeto.ProdutosDTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -212,16 +213,17 @@ public class listagemVIEW extends javax.swing.JFrame {
             
             ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
             
-            for(int i = 0; i < listagem.size(); i++){
-                model.addRow(new Object[]{
-                    listagem.get(i).getId(),
-                    listagem.get(i).getNome(),
-                    listagem.get(i).getValor(),
-                    listagem.get(i).getStatus()
-                });
-            }
-        } catch (Exception e) {
+            // Populando a tabela com os produtos
+        for (ProdutosDTO produto : listagem) {
+            model.addRow(new Object[]{
+                produto.getId(),
+                produto.getNome(),
+                produto.getValor(),
+                produto.getStatus()  // Certifique-se de que o método getStatus() exista no DTO
+            });
         }
-    
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao listar produtos: " + e.getMessage());
+    }
     }
 }
