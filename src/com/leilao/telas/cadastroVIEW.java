@@ -149,17 +149,25 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
+         try {
         String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
-        String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
-        
-        ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
-        
+        double valor = Double.parseDouble(cadastroValor.getText()); // Certifique-se de que seja double
+       
+        // Crie o objeto do produto com o nome e valor
+        ProdutosDTO novoProduto = new ProdutosDTO();
+        novoProduto.setNome(nome);
+        novoProduto.setValor(valor);
+
+        // Chame o método de cadastro do DAO
+        ProdutosDAO dao = new ProdutosDAO();
+        dao.cadastrarProduto(novoProduto);
+
+        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Valor inválido. Digite um número decimal válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
@@ -170,17 +178,18 @@ public class cadastroVIEW extends javax.swing.JFrame {
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
         salvarItem();
     }//GEN-LAST:event_bntSalvarActionPerformed
-       private void salvarItem() {
+    
+    private void salvarItem() {
     String nome = cadastroNome.getText();  // Nome correto do campo
-    String valor = cadastroValor.getText();  // Nome correto do campo
-
+    double valor = Double.parseDouble(cadastroValor.getText());// Nome correto do campo
+    
     // Supondo que tenha um método para verificar se o item já existe
     ProdutosDAO produtoDAO = new ProdutosDAO();
     ProdutosDTO produtoExistente = produtoDAO.buscarPorNome(nome);
 
     if (produtoExistente != null) {
         // Atualizar o produto se ele já existir
-        produtoExistente.setValor(Integer.parseInt(valor));  // Atualiza o valor do produto
+        produtoExistente.setValor(Double.parseDouble(cadastroValor.getText()));  // Atualiza o valor do produto
         try {
             produtoDAO.atualizarProduto(produtoExistente);
             JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
