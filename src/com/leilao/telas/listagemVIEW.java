@@ -205,16 +205,15 @@ public class listagemVIEW extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void listarProdutos(){
-        try {
-            ProdutosDAO produtosdao = new ProdutosDAO();
-            
-            DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
-            
-            // Populando a tabela com os produtos( aqui alterei o codigo anterior)
-            for (ProdutosDTO produto : listagem) {
+       try {
+        ProdutosDAO produtosdao = new ProdutosDAO();
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setNumRows(0);  // Limpa a tabela
+
+        ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
+
+        // Populando a tabela com os produtos
+        for (ProdutosDTO produto : listagem) {
             model.addRow(new Object[]{
                 produto.getId(),
                 produto.getNome(),
@@ -225,5 +224,5 @@ public class listagemVIEW extends javax.swing.JFrame {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Erro ao listar produtos: " + e.getMessage());
     }
-    }
+}
 }

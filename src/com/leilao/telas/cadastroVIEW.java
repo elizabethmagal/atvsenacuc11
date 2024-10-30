@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class cadastroVIEW extends javax.swing.JFrame {
 
-    /** Implementação botão salvar cadastro*/
+    /** Implementação botão salvar para o banco de dados*/
     public cadastroVIEW() {
         initComponents();
     }
@@ -176,12 +176,11 @@ public class cadastroVIEW extends javax.swing.JFrame {
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
         salvarItem();
     }//GEN-LAST:event_bntSalvarActionPerformed
-    
     private void salvarItem() {
-    String nome = cadastroNome.getText();  // Nome correto do campo
-    double valor = Double.parseDouble(cadastroValor.getText());// Nome correto do campo
+    String nome = cadastroNome.getText(); 
+    double valor = Double.parseDouble(cadastroValor.getText());
     
-    // Supondo que tenha um método para verificar se o item já existe
+    // Verificar se o item já existe
     ProdutosDAO produtoDAO = new ProdutosDAO();
     ProdutosDTO produtoExistente = produtoDAO.buscarPorNome(nome);
 
