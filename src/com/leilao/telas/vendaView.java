@@ -11,11 +11,9 @@ import com.leilao.projeto.ProdutosDTO;
  * @author bmaga
  */
 public class vendaView extends javax.swing.JFrame {
-
-    /**
-     * Creates new form vendaView
-     */
-       private ProdutosDAO produtosDAO;  // Variável para acessar o DAO
+    private ArrayList<ProdutosDTO> produtosVendidos = new ArrayList<>();
+    private ProdutosDAO produtosDAO;  // Variável para acessar o DAO
+    
     public vendaView() {
         initComponents();
         // Instanciar o DAO e preencher a tabela
@@ -90,8 +88,8 @@ public class vendaView extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btnVoltar)
@@ -114,19 +112,30 @@ public class vendaView extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
         modelo.setRowCount(0);  // Remove todas as linhas
 
-        // Obtém a lista de produtos vendidos
-        ArrayList<ProdutosDTO> listaProdutosVendidos = produtosDAO.listarProdutosVendidos();
+        // Obtém a lista de produtos vendidos do banco de dados
+        produtosVendidos = produtosDAO.listarProdutosVendidos();
 
-        // Adiciona os produtos vendidos na tabela
-        for (ProdutosDTO produto : listaProdutosVendidos) {
-            Object[] rowData = {
+        // Atualiza a tabela com os produtos vendidos
+        atualizarTabela();
+    
+    }
+     /**
+     * Método para atualizar a tabela com a lista de produtos vendidos
+     */
+    public void atualizarTabela() {
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setRowCount(0); // Limpa a tabela antes de adicionar os itens vendidos
+
+        // Itera sobre a lista de produtos vendidos e adiciona na tabela
+        for (ProdutosDTO produto : produtosVendidos) {
+            model.addRow(new Object[]{
                 produto.getId(),
                 produto.getNome(),
                 produto.getValor(),
-                produto.getStatus()
-            };
-            modelo.addRow(rowData);  // Adiciona cada produto como uma linha
+                "Vendido" // Coloca o status "Vendido" para os produtos
+            });
         }
+    
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
