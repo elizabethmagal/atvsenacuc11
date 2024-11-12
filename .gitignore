@@ -1,5 +1,9 @@
 
+# Ignorar todos os arquivos .class
+*.class
 
+# Ignorar a pasta build/ onde os arquivos .class estão armazenados
+/build/
 
 
 

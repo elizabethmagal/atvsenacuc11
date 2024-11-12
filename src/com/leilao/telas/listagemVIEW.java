@@ -139,17 +139,55 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        try {
+        // Obtém o ID do produto a partir do campo de texto
         String id = id_produto_venda.getText();
         
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira o ID do produto.");
+            return;
+        }
+        
+        // Converte o ID para inteiro
+        int produtoId = Integer.parseInt(id);
+        
+        // Cria uma instância do DAO para acessar o banco de dados
         ProdutosDAO produtosdao = new ProdutosDAO();
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        // Verifica se o produto existe no banco de dados
+        ProdutosDTO produto = produtosdao.buscarProdutoPorId(produtoId);
+        
+        if (produto == null) {
+            JOptionPane.showMessageDialog(this, "Produto não encontrado.");
+            return;
+        }
+        
+        // Verifica se o produto já foi vendido
+        if ("Vendido".equals(produto.getStatus())) {
+            JOptionPane.showMessageDialog(this, "Este produto já foi vendido.");
+            return;
+        }
+        
+        // Marca o produto como vendido
+        produto.setStatus("Vendido");
+        produtosdao.atualizarProduto(produto); // Atualiza o produto no banco de dados
+        
+        // Atualiza a listagem de produtos na tabela
         listarProdutos();
+        
+        JOptionPane.showMessageDialog(this, "Produto vendido com sucesso!");
+        
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "ID de produto inválido.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao vender produto: " + e.getMessage());
+    }
+
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+         vendaView vendas = new vendaView(); 
+         vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
